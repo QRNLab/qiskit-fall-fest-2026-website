@@ -1,0 +1,718 @@
+/* ==========================================================================
+   Qiskit Fall Fest 2026 — Landing page
+   Palette drawn from Qiskit Fall Fest hero illustration:
+   dark violet #31135E, violet #8B3FFC / #A56EFF / #BE95FF / #D4BBFF,
+   pink #EE5396 / #FF7EB6 / #FFAFD2, blue #0F62FE / #4589FF / #BDCDEF,
+   light blue #DAE5FC, near-white cloud #F2F4F8.
+   No pure white or pure black anywhere.
+
+   The page uses a single bright hero ("sky") above one solid, very dark
+   violet body background (#1A0B3A). Sections are separated with centered
+   fading dividers, spacing, and contained design objects (e.g. the CTA
+   card) — never by per-section background changes.
+   ========================================================================== */
+
+:root {
+    --violet-deep: #31135E;
+    --violet-deeper: #28105B;
+    --violet-night: #1A0B3A;
+    --violet-dark: #4A1D8B;
+    --violet: #8B3FFC;
+    --violet-mid: #A56EFF;
+    --violet-light: #BE95FF;
+    --violet-pale: #D4BBFF;
+    --pink: #EE5396;
+    --pink-mid: #FF7EB6;
+    --pink-pale: #FFAFD2;
+    --blue: #0F62FE;
+    --blue-mid: #4589FF;
+    --blue-soft: #BDCDEF;
+    --cloud: #F2F4F8;
+
+    --grad-pink: linear-gradient(135deg, #EE5396, #FF7EB6);
+    --grad-violet: linear-gradient(135deg, #8B3FFC, #A56EFF);
+    --grad-blue: linear-gradient(135deg, #0F62FE, #4589FF);
+    --grad-hero: linear-gradient(160deg, #28105B 0%, #3C1772 35%, #6929C4 68%, #8B3FFC 100%);
+
+    --font: "Segoe UI", "Helvetica Neue", Arial, system-ui, sans-serif;
+}
+
+/* ---------- Base ---------- */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background: var(--violet-night);
+    color: var(--cloud);
+    font-family: var(--font);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+img { max-width: 100%; }
+
+::selection {
+    background: var(--pink);
+    color: var(--violet-deep);
+}
+
+/* Hide the scrollbar on the parallax scroller */
+.parallax-wrapper { scrollbar-width: none; }
+.parallax-wrapper::-webkit-scrollbar { display: none; }
+
+/* ---------- Typography helpers ---------- */
+.eyebrow {
+    margin: 0 0 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--pink-mid);
+}
+.eyebrow.light { color: var(--violet-mid); }
+
+h2 {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+    line-height: 1.15;
+    color: var(--cloud);
+}
+
+.lede {
+    max-width: 46rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--blue-soft);
+}
+
+.section-sub {
+    max-width: 40rem;
+    margin: -0.5rem 0 0;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--blue-soft);
+}
+
+/* ---------- Navigation ---------- */
+/* Backgroundless bar: a whisper scrim keeps it readable over the light
+   hero, and a gradient hairline (via ::after) grounds it. */
+.site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 2rem;
+    background: linear-gradient(180deg, rgba(26, 11, 58, 0.45), rgba(26, 11, 58, 0));
+    transform: translateY(-110%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.site-nav.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+.site-nav::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(190, 149, 255, 0.4) 20%, rgba(190, 149, 255, 0.4) 80%, transparent);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    color: var(--cloud);
+}
+.brand-mark {
+    width: 2.6rem;
+    height: auto;
+    display: block;
+}
+.brand-name {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+.brand-name em {
+    font-style: normal;
+    color: var(--pink-mid);
+}
+.brand-name strong {
+    font-weight: 700;
+    color: var(--violet-light);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+}
+.nav-links a {
+    position: relative;
+    padding-bottom: 0.25rem;
+    color: var(--blue-soft);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--grad-pink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.22s ease;
+}
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+    transform: scaleX(1);
+}
+
+.nav-links a.nav-cta {
+    color: var(--pink-mid);
+}
+
+/* ---------- 1. Scroll container + perspective ---------- */
+.parallax-wrapper {
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    perspective: 1px;
+    scroll-behavior: smooth;
+}
+
+/* ---------- Parallax group ---------- */
+/* pointer-events: none so Chromium hit-tests the 3D-transformed layers
+   correctly; interactivity is restored on the foreground layer. */
+.parallax-group.hero {
+    position: relative;
+    height: 100vh;
+    transform-style: preserve-3d;
+    pointer-events: none;
+}
+
+.layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+/* ---------- 2. Background layer (pushed back, scrolls slower) ---------- */
+/* Raw Hero 1 illustration, kept as-is; image covers the layer.
+   Spans 100vw (not the scrollbar-narrowed wrapper width) so the hero
+   image reaches both screen edges. */
+.layer-bg {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    height: 100%;
+    transform: translateX(-50%) translateZ(-1px) scale(2);
+    z-index: -2;
+}
+.hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ---------- 3. Foreground layer (same depth as the hero background,
+   so the hero content scrolls at the same speed and the content below
+   scrolls faster and covers it) ---------- */
+.layer-fg {
+    transform: translateZ(-1px) scale(2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 5rem 2rem 3.5rem;
+    pointer-events: auto;
+}
+
+/* Soft light base behind the text for readability */
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 52rem;
+    padding: 2.6rem 3rem;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(218, 229, 252, 0.85) 0%,
+        rgba(218, 229, 252, 0.5) 45%,
+        rgba(218, 229, 252, 0) 70%
+    );
+}
+
+/* Glowing colour blobs behind the text */
+.hero-content::before,
+.hero-content::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+}
+.hero-content::before {
+    width: 26rem;
+    height: 26rem;
+    top: -8rem;
+    left: -6rem;
+    background: rgba(238, 83, 150, 0.55);
+    filter: blur(64px);
+}
+.hero-content::after {
+    width: 30rem;
+    height: 30rem;
+    bottom: -10rem;
+    right: -7rem;
+    background: rgba(139, 63, 252, 0.5);
+    filter: blur(72px);
+}
+
+.hero .eyebrow { color: var(--pink); }
+
+.hero-title {
+    margin: 0 0 1.1rem;
+    font-size: clamp(2.6rem, 7vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--violet-deep);
+}
+/* .accent-pink {
+    background: linear-gradient(135deg, var(--pink), #E13D8A);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.accent-violet {
+    background: linear-gradient(135deg, var(--violet), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+} */
+
+.hero-sub {
+    max-width: 40rem;
+    margin: 0 auto 2rem;
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    line-height: 1.6;
+    color: var(--violet-deep);
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.85rem 1.8rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.98rem;
+    text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.btn-pink {
+    background: var(--grad-pink);
+    color: var(--violet-deep);
+    box-shadow: 0 2px 10px rgba(238, 83, 150, 0.3);
+}
+.btn-pink:hover { box-shadow: 0 4px 14px rgba(255, 126, 182, 0.4); }
+
+.btn-ghost {
+    border: 1.5px solid var(--violet-light);
+    color: var(--violet-light);
+    background: rgba(139, 63, 252, 0.14);
+}
+.btn-ghost:hover {
+    background: rgba(139, 63, 252, 0.32);
+    box-shadow: 0 2px 10px rgba(139, 63, 252, 0.3);
+}
+
+/* Dark variant for the light hero */
+.hero .btn-ghost {
+    border-color: var(--violet-deep);
+    color: var(--violet-deep);
+    background: rgba(218, 229, 252, 0.4);
+}
+.hero .btn-ghost:hover {
+    background: rgba(218, 229, 252, 0.75);
+    box-shadow: 0 2px 10px rgba(74, 29, 139, 0.2);
+}
+
+.hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--violet-dark);
+}
+.hero-meta .dot {
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: var(--violet-mid);
+}
+
+/* ---------- 4. Regular content sections ---------- */
+/* All sections share the page background; a centered fading divider
+   separates them instead of changing the background per section. */
+.regular-content {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 6rem 0;
+}
+.regular-content:not(:first-of-type)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(56rem, 82%);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(190, 149, 255, 0.35), transparent);
+}
+
+.shell {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* About — solid page background so it masks the parallax hero behind it
+   and the parallax effect stays visible while scrolling. */
+.section.about {
+    background: var(--violet-night);
+}
+.section.about h2 { color: var(--cloud); }
+.section.about .lede { color: var(--blue-soft); }
+
+.cloud-deco {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+.cd {
+    position: absolute;
+    opacity: 0.32;
+}
+.cd-1 { width: 16rem; top: 10%; left: -4rem; }
+.cd-2 { width: 22rem; bottom: 8%; right: -5rem; }
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 2.4rem;
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(190, 149, 255, 0.2);
+}
+.step-num {
+    display: block;
+    font-size: 1.9rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--violet-light);
+    margin-bottom: 0.6rem;
+}
+.step h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.05rem;
+    color: var(--cloud);
+}
+.step p {
+    margin: 0;
+    font-size: 0.93rem;
+    line-height: 1.6;
+    color: var(--blue-soft);
+}
+
+/* Highlights — cards on the shared background */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 2.4rem;
+    margin-top: 2.5rem;
+}
+.card {
+    padding: 1.5rem 0.5rem 0.5rem;
+}
+.card-icon {
+    display: block;
+    width: 5.5rem;
+    height: 5.5rem;
+    margin-bottom: 1.2rem;
+    object-fit: contain;
+    object-position: left center;
+}
+.card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+    color: var(--cloud);
+}
+.card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--blue-soft);
+}
+
+/* Schedule — rows aligned to the shell width, description left / date right */
+.timeline {
+    margin-top: 3rem;
+}
+.tl-row {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    align-items: baseline;
+    gap: 1.2rem;
+    padding: 1.1rem 1.25rem;
+}
+.tl-row:nth-child(odd) {
+    background: rgba(190, 149, 255, 0.07);
+}
+.tl-when {
+    justify-self: end;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--pink-mid);
+    white-space: nowrap;
+}
+.tl-what {
+    text-align: left;
+    font-size: 1.05rem;
+    color: var(--cloud);
+}
+
+/* Speakers */
+.speaker-note { color: var(--blue-soft); }
+
+.speaker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 2.4rem;
+    margin-top: 2.5rem;
+}
+.speaker {
+    padding: 1.5rem 0.5rem;
+    text-align: center;
+}
+.avatar {
+    display: block;
+    width: 7rem;
+    height: 7rem;
+    margin: 0 auto 1rem;
+    object-fit: contain;
+}
+
+.speaker h3 {
+    margin: 0 0 0.2rem;
+    font-size: 1.05rem;
+    color: var(--cloud);
+}
+.speaker p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--blue-soft);
+}
+
+/* Sponsors */
+.sponsor-cta {
+    margin-top: 2.2rem;
+    color: var(--blue-soft);
+}
+.sponsor-cta a {
+    color: var(--pink-mid);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 126, 182, 0.5);
+}
+
+.logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 1.6rem;
+    margin-top: 2.5rem;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--violet-pale);
+    opacity: 0.8;
+}
+
+/* FAQ — fills the full shell width like the other sections */
+.faq-list { width: 100%; }
+
+.faq-item {
+    border-bottom: 1px solid rgba(190, 149, 255, 0.2);
+}
+.faq-item summary {
+    cursor: pointer;
+    padding: 1.1rem 2rem 1.1rem 0;
+    font-weight: 700;
+    color: var(--cloud);
+    list-style: none;
+    position: relative;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+    content: "+";
+    position: absolute;
+    right: 0.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    color: var(--pink-mid);
+}
+.faq-item[open] summary::after { content: "\2013"; }
+.faq-item p {
+    margin: 0;
+    padding: 0 2rem 1.2rem 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--blue-soft);
+}
+
+/* CTA — contained gradient card on the shared page background */
+.cta-box {
+    padding: 4rem;
+    text-align: center;
+    background: var(--grad-hero);
+    border: 1px solid rgba(190, 149, 255, 0.25);
+    border-radius: 1.75rem;
+    box-shadow: 0 1.5rem 4rem rgba(16, 7, 36, 0.45);
+}
+.cta-box .eyebrow { color: var(--pink-pale); }
+.cta-text {
+    max-width: 36rem;
+    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--blue-soft);
+}
+.cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* ---------- Footer ---------- */
+/* Shares the page background; only a hairline separates it. */
+.site-footer {
+    padding: 3.5rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(190, 149, 255, 0.16);
+}
+.footer-brand {
+    margin: 0 0 0.6rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--cloud);
+}
+.footer-text {
+    max-width: 34rem;
+    margin: 0 auto 1.4rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--violet-light);
+}
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.3rem;
+}
+.footer-links a {
+    color: var(--blue-soft);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+    /* Top bar keeps just the brand, left-aligned */
+    .site-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+        padding: 0.9rem 1rem;
+    }
+    /* transform is disabled on mobile in both states so the fixed-positioned
+       bottom bar below resolves against the viewport rather than the
+       (transformed) top bar; hiding is done with opacity only */
+    .site-nav,
+    .site-nav.is-visible { transform: none; }
+
+    /* Nav items move to a bottom bar on mobile */
+    .nav-links {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.9rem;
+        padding: 0.7rem 1rem calc(0.7rem + env(safe-area-inset-bottom, 0px));
+        background: linear-gradient(180deg, rgba(26, 11, 58, 0), rgba(26, 11, 58, 0.7));
+        border-top: 1px solid rgba(190, 149, 255, 0.2);
+    }
+
+    .regular-content { padding: 4rem 0; }
+    .cta-box { padding: 2.4rem 1.5rem; border-radius: 1.25rem; }
+    .hero-content { padding: 1.8rem 1.4rem; }
+}

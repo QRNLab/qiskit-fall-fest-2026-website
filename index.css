@@ -138,17 +138,24 @@ h2 {
     background: linear-gradient(90deg, transparent, rgba(190, 149, 255, 0.4) 20%, rgba(190, 149, 255, 0.4) 80%, transparent);
 }
 
-.brand {
+.brand-lockup {
     display: flex;
     align-items: center;
-    gap: 0.7rem;
+    gap: 1.2rem;
     text-decoration: none;
-    color: var(--cloud);
 }
-.brand-mark {
-    width: 2.6rem;
-    height: auto;
+.brand-logo {
+    height: 2rem;
+    width: auto;
     display: block;
+}
+.ibm-logo {
+    height: 3.4rem; /* IBM logo is usually wider, so a slightly smaller height balances it */
+}
+.brand-divider {
+    width: 1px;
+    height: 2rem;
+    background: rgba(190, 149, 255, 0.4);
 }
 .brand-name {
     font-weight: 600;
@@ -162,7 +169,6 @@ h2 {
     font-weight: 700;
     color: var(--violet-light);
 }
-
 .nav-links {
     display: flex;
     align-items: center;
@@ -431,7 +437,39 @@ h2 {
 }
 .section.about h2 { color: var(--cloud); }
 .section.about .lede { color: var(--blue-soft); }
-
+.narrative-callout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 1.5rem 2rem;
+    background: rgba(190, 149, 255, 0.05);
+    border-left: 3px solid var(--violet-mid);
+    border-radius: 0 0.5rem 0.5rem 0;
+    max-width: 68rem;
+}
+.callout-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--blue-soft);
+}
+.callout-text strong {
+    color: var(--cloud);
+}
+.callout-logo {
+    height: 7rem;
+    flex-shrink: 0;
+    opacity: 0.9;
+}
+@media (max-width: 600px) {
+    .narrative-callout {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+        padding: 1.25rem;
+    }
+}
 .cloud-deco {
     position: absolute;
     inset: 0;
@@ -504,12 +542,13 @@ h2 {
 }
 
 /* Schedule — rows aligned to the shell width, description left / date right */
+/* Schedule — rows aligned to the shell width, description left / date right */
 .timeline {
     margin-top: 3rem;
 }
 .tl-row {
     display: grid;
-    grid-template-columns: 8rem 1fr;
+    grid-template-columns: 9.5rem 1fr; /* Slightly widened from 8rem to fit dates */
     align-items: baseline;
     gap: 1.2rem;
     padding: 1.1rem 1.25rem;
@@ -517,20 +556,31 @@ h2 {
 .tl-row:nth-child(odd) {
     background: rgba(190, 149, 255, 0.07);
 }
+.tl-row.deadline {
+    border-left: 3px solid var(--pink); /* Subtle highlight for the deadline */
+    background: rgba(238, 83, 150, 0.05);
+}
 .tl-when {
     justify-self: end;
+    text-align: right;
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     color: var(--pink-mid);
-    white-space: nowrap;
 }
 .tl-what {
     text-align: left;
+}
+.tl-title {
     font-size: 1.05rem;
     color: var(--cloud);
 }
-
+.tl-desc {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--blue-soft);
+    margin-top: 0.2rem;
+}
 /* Speakers */
 .speaker-note { color: var(--blue-soft); }
 
@@ -648,13 +698,122 @@ h2 {
     justify-content: center;
     gap: 1rem;
 }
-
+/* Organizers */
+.org-lead {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+.org-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+.org-card {
+    background: rgba(190, 149, 255, 0.05);
+    border: 1px solid rgba(190, 149, 255, 0.15);
+    border-radius: 1rem;
+    padding: 2rem 1.25rem;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.org-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(16, 7, 36, 0.5);
+    background: rgba(190, 149, 255, 0.08);
+}
+.org-card.featured {
+    border-color: var(--pink-mid);
+    max-width: 22rem;
+    width: 100%;
+}
+.org-card.featured:hover {
+    box-shadow: 0 8px 24px rgba(238, 83, 150, 0.15);
+}
+.org-img {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.2rem;
+    border: 2px solid var(--violet-mid);
+    /* Add these to fix downsampling pixelation */
+    image-rendering: -webkit-optimize-contrast; /* Safari/Chrome */
+    image-rendering: high-quality;
+    transform: translateZ(0); /* Forces GPU hardware acceleration */
+    backface-visibility: hidden; /* Smooths jagged edges */
+}
+.org-card.featured .org-img {
+    width: 8rem;
+    height: 8rem;
+    border-color: var(--pink-mid);
+}
+.org-card h3 {
+    margin: 0 0 0.2rem;
+    font-size: 1.15rem;
+    color: var(--cloud);
+}
+.org-role {
+    display: block;
+    color: var(--pink-mid);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.6rem;
+}
+.org-desc {
+    color: var(--blue-soft);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    min-height: 2.7rem;
+}
+.org-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.org-links a {
+    color: var(--violet-light);
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.org-links a:hover {
+    color: var(--pink-mid);
+    transform: scale(1.1);
+}
+.org-subhead {
+    text-align: center;
+    color: var(--violet-mid);
+    margin: 4rem 0 0;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
 /* ---------- Footer ---------- */
 /* Shares the page background; only a hairline separates it. */
+/* ---------- Footer ---------- */
 .site-footer {
+    position: relative; /* Added this */
     padding: 3.5rem 0;
     text-align: center;
     border-top: 1px solid rgba(190, 149, 255, 0.16);
+}
+.footer-seal {
+    position: absolute;
+    top: -3.5rem; /* Pulls it exactly halfway up over the border */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 7rem;
+    height: 7rem;
+    z-index: 10;
+}
+.site-footer .shell {
+    padding-top: 1.5rem; /* Prevents text from hiding behind the badge */
 }
 .footer-brand {
     margin: 0 0 0.6rem;
@@ -684,6 +843,9 @@ h2 {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 720px) {
+    .brand-logo { height: 1.6rem; }
+    .ibm-logo { height: 1.1rem; }
+    .brand-divider { height: 1.6rem; }
     /* Top bar keeps just the brand, left-aligned */
     .site-nav {
         flex-direction: column;

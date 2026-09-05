@@ -823,10 +823,29 @@ h2 {
 }
 .footer-text {
     max-width: 34rem;
-    margin: 0 auto 1.4rem;
+    margin: 0 auto 0.4rem; /* Changed bottom margin from 1.4rem to 0.4rem to tuck the links closer */
     font-size: 0.9rem;
     line-height: 1.6;
     color: var(--violet-light);
+}
+
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-socials a {
+    color: var(--pink-mid); /* Gives these links the neon pink accent */
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.footer-socials a:hover {
+    color: var(--cloud);
 }
 .footer-links {
     display: flex;

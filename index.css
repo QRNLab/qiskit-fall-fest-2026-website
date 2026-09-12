@@ -641,7 +641,37 @@ h2 {
     color: var(--violet-pale);
     opacity: 0.8;
 }
+/* --- Added for Sponsor/Partner Subheadings & Image Logos --- */
+.category-subhead {
+    text-align: center;
+    color: var(--violet-mid);
+    margin: 3rem 0 1rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
 
+.logo-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.logo-link:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+}
+
+.partner-logo {
+    max-height: 5.5rem; /* Matches the text logo height nicely */
+    width: auto;
+    object-fit: contain;
+    /* Anti-aliasing for sharp edges */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
 /* FAQ — fills the full shell width like the other sections */
 .faq-list { width: 100%; }
 

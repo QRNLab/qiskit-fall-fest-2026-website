@@ -582,37 +582,101 @@ h2 {
     margin-top: 0.2rem;
 }
 /* Speakers */
+/* ---------- Speakers ---------- */
 .speaker-note { color: var(--blue-soft); }
 
 .speaker-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-    gap: 2.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1.5rem;
     margin-top: 2.5rem;
 }
-.speaker {
-    padding: 1.5rem 0.5rem;
+
+.speaker-card {
+    background: rgba(190, 149, 255, 0.05);
+    border: 1px solid rgba(190, 149, 255, 0.15);
+    border-radius: 1rem;
+    padding: 2.2rem 1.5rem;
     text-align: center;
-}
-.avatar {
-    display: block;
-    width: 7rem;
-    height: 7rem;
-    margin: 0 auto 1rem;
-    object-fit: contain;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.speaker h3 {
+.speaker-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(16, 7, 36, 0.5);
+    background: rgba(190, 149, 255, 0.08);
+}
+
+.speaker-img {
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.2rem;
+    border: 2px solid var(--pink-mid); /* Pink border distinguishes speakers from organizers */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: high-quality;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.speaker-date {
+    display: inline-block;
+    background: rgba(238, 83, 150, 0.15);
+    color: var(--pink-mid);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+}
+
+.speaker-card h3 {
     margin: 0 0 0.2rem;
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     color: var(--cloud);
 }
-.speaker p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--blue-soft);
+
+.speaker-role {
+    display: block;
+    color: var(--violet-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
 }
 
+.speaker-bio {
+    color: var(--blue-soft);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0 0 1.5rem;
+    flex-grow: 1; /* Pushes the social links to the bottom so cards look uniform */
+}
+
+.speaker-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: auto;
+}
+
+.speaker-links a {
+    color: var(--violet-light);
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.speaker-links a:hover {
+    color: var(--pink-mid);
+    transform: scale(1.1);
+}
 /* Sponsors */
 .sponsor-cta {
     margin-top: 2.2rem;

@@ -729,7 +729,7 @@ h2 {
 }
 
 .partner-logo {
-    max-height: 5.5rem; /* Matches the text logo height nicely */
+    max-height: 7.5rem; /* Matches the text logo height nicely */
     width: auto;
     object-fit: contain;
     /* Anti-aliasing for sharp edges */
